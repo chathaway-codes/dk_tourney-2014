@@ -12,6 +12,7 @@
         <th>Description</th>
         <th>Teams?</th>
         <th>Registered</th>
+        <th> </th>
     </tr>
 {% if list %}
     {% for l in list %}
@@ -26,6 +27,13 @@
             {% else %}
                 {{ l.players.count }}
             {% endif %}
+            </td>
+            <td>
+                {% if user in l.players.all %}
+                <a href="{% url 'tournament_reg' pk=l.id %}">Unregister</a>
+                {% else %}
+                <a href="{% url 'tournament_reg' pk=l.id %}">Register</a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}

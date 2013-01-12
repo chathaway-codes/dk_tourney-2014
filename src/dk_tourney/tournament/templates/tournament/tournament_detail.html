@@ -25,11 +25,11 @@
     <tr>
         <td>Teams playing</td>
         <td>
-            <ul>
+            <p>
             {% for t in tourney.team_set.all %}
-                <li>{{ t.name }}</li>
+                {{ t.name }}<br />
             {% endfor %}
-            </ul>
+            </p>
         </td>
     </tr>
     {% else %}
@@ -40,11 +40,11 @@
     <tr>
         <td>Players</td>
         <td>
-            <ul>
+            <p>
                 {% for p in tourney.players.all %}
-                <li>{{ p.player.handle }}</li>
+                {{ p.player.handle }}<br />
                 {% endfor %}
-            </ul>
+            </p>
         </td>
     </tr>
     {% endif %}
