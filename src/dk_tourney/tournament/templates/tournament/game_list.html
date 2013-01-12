@@ -5,6 +5,9 @@
 {% block games %}class="active"{% endblock %}
 
 {% block content %}
+{% if message != None %}
+<h3>{{ message }}</h3>
+{% endif %}
 <table class="table table-striped">
     <tr>
         <th>Name</th>
@@ -15,11 +18,12 @@
 {% if list %}
     {% for l in list %}
         <tr>
-            <td><a href="{% url 'game_detail' pk=l.id %}">{{ l.name }}</a></td>
-            <td>{{ l.description }}</td>
+            <td><a href="{% url 'game_detail' pk=l.id %}">{{ l.name|title }}</a></td>
+            <td>{{ l.description|truncatewords:10 }}</td>
             <td>{{ l.player_set.count }}</td>
             <td>
             {% if l in user.player.games.all %}
+            <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
             {% else %}
             <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
             {% endif %}

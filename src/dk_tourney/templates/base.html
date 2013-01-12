@@ -34,7 +34,7 @@
                             <li {% block home %}{% endblock %}><a href="{% url 'home' %}">Home</a></li>
                             <li {% block games %}{% endblock %}><a href="{% url 'game_list' %}">Games</a></li>
                             <li {% block tournaments %}{% endblock %}><a href="{% url 'tournament_list' %}">Tournaments</a></li>
-                            <li {% block profile %}{% endblock %}><a href="#">Profile</a></li>
+                            <li {% block profiles %}{% endblock %}><a href="{% url 'profile_list' %}">Profile</a></li>
                             {% if user.is_staff %}
                             <li> <a href="{% url 'admin:index' %}">Admin</a></li>
                             {% endif %}

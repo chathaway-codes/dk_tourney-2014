@@ -7,22 +7,42 @@ class Player(models.Model):
 
     handle = models.CharField(max_length=255, null=True, blank=True)
     games = models.ManyToManyField('Game', blank=True)
+    platforms = models.ManyToManyField('Platform', blank=True)
+
+    def get_name(self):
+        if self.handle != "":
+            return self.handle
+        return self.user.username
+
+    def __unicode__(self):
+        return self.get_name()
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=4096)
+    image = models.ImageField(upload_to="games/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
-    PLATFORM_CHOICES = (
-        ("PS3", "Playstation 3"),
-        ("360", "XBox 360"),
-        ("N64", "Nintendo 64"),
-        ("PC", "Computer"),
-    )
-
-    platform = models.CharField(max_length=3, choices=PLATFORM_CHOICES)
+    platform = models.ForeignKey('Platform')
 
     def __unicode__(self):
         return self.name
+
+class Platform(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+class Computer(models.Model):
+    models.ForeignKey(User)
+
+    cpu = models.CharField(max_length=255, null=True, blank=True)
+    gpu = models.CharField(max_length=255, null=True, blank=True)
+    ram = models.CharField(max_length=255, null=True, blank=True)
+    hdd = models.CharField(max_length=255, null=True, blank=True)
+
+    other = models.CharField(max_length=4096, null=True, blank=True)
 
 class Team(models.Model):
     name = models.CharField(max_length=255)

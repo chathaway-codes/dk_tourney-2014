@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load player_tags %}
+
+{% block title %}Profiles{% endblock %}
+{% block profiles %}class="active"{% endblock %}
+
+{% block content %}
+{% if message != None %}
+<h3>{{ message }}</h3>
+{% endif %}
+<table class="table table-striped">
+    <tr>
+        <th>Handle</th>
+        <th>Registered</th>
+        <th># of tournaments</th>
+        <th># of games</th>
+    </tr>
+{% if list %}
+    {% for l in list %}
+        <tr>
+            <td>{{ l.get_name }}</td>
+            <td>{{ l.user.date_joined }} </td>
+            <td>{{ l.user|get_registered_tournaments_count }}</td>
+            <td>{{ l.games.count }}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td>No players yet!</td>
+    </tr>
+{% endif %}
+</table>
+{% endblock %}

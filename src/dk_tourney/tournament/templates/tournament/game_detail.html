@@ -4,7 +4,10 @@
 {% block games %}class="active"{% endblock %}
 
 {% block content %}
-<p>{{ game.description }}</p>
+{% if game.image %}
+<img class="img-polaroid" src="{{ game.image.url }}" />
+{% endif %}
+<p class="lead">{{ game.description }}</p>
 <h2>Available Tournaments</h2>
 <table class="table table-striped">
     <tr>
@@ -12,6 +15,9 @@
         <th>Description</th>
         <th># Registered</th>
     </tr>
+{% if game.tournament_set.count == 0 %}
+    <tr><td>No tournaments yet!</td></tr>
+{% endif %}
 {% for t in game.tournament_set.all %}
     <tr>
         <td>{{ t.name }}</td>
@@ -25,5 +31,16 @@
         </td>
     </tr>
 {% endfor %}
+</table>
+
+<h2>People who will be playing</h2>
+<p>
+{% for p in game.player_set.all %}
+{% if forloop.counter != 1 %}
+, 
+{% endif %}
+{{ p }}
+{% endfor %}
+</p>
 
 {% endblock %}

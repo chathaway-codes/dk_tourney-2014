@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 
 from django.contrib.auth.models import User
 
-from tournament.models import Tournament, Game
+from tournament.models import Tournament, Game, Player
 
 class TournamentListView(ListView):
     model = Tournament
@@ -26,12 +26,19 @@ class GameDetailView(DetailView):
     model = Game
     context_object_name = 'game'
 
+class PlayerListView(ListView):
+    model = Player
+    context_object_name = 'list'
 
 @login_required
 def interest_in_game(request, pk, **kwargs):
     game = get_object_or_404(Game, pk=pk)
 
+    games = Game.objects.all()
+
     if game not in request.user.player.games.all():
         request.user.player.games.add(game)
-    
-    return render_to_response('tournament/game_interest_added.html', {"game": game}, context_instance=RequestContext(request))
+        return render_to_response('tournament/game_list.html', {"message":"Your interest has been noted!", "list":games}, context_instance=RequestContext(request))
+    else:
+        request.user.player.games.remove(game)
+        return render_to_response('tournament/game_list.html', {"message":"Your lack of interest has been noted!", "list":games}, context_instance=RequestContext(request))

@@ -1,5 +1,6 @@
-distribute==0.6.30
 Django==1.4.2
+PIL==1.1.7
+distribute==0.6.30
 django-tastypie==0.9.11
 mimeparse==0.1.3
 python-dateutil==1.5
