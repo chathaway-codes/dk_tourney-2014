@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block title %}Games{% endblock %}
+{% block games %}class="active"{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Number of players</th>
+    </tr>
+{% if list %}
+    {% for l in list %}
+        <tr>
+            <td><a href="{% url 'game_detail' pk=l.id %}">{{ l.name }}</td>
+            <td>{{ l.description }}</td>
+            <td>{{ l.player_set.count }}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td>No games added!</td>
+    </tr>
+{% endif %}
+</table>
+{% endblock %}
