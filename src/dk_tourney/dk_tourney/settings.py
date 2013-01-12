@@ -128,10 +128,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'tastypie',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'tournament',
 )
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

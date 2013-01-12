@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "An example Node.js project",
   "jam": {
-    "packageDir": "js",
+    "packageDir": "js-lib",
     "dependencies": {
       "jquery": "1.7.1",
       "underscore": null,

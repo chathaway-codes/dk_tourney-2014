@@ -13,12 +13,29 @@ var jam = {
         {
             "name": "bootstrap",
             "location": "js/bootstrap"
+        },
+        {
+            "name": "backbone",
+            "location": "js/backbone",
+            "main": "backbone.js"
         }
+        {
+            "name": "backbone-tastypie",
+            "location": "js/backbone-tastypie",
+            "main": "backbone-tastypie"
+        },
     ],
     "version": "0.2.13",
     "shim": {
         "underscore": {
             "exports": "_"
+        },
+        "backbone": {
+            "deps": [
+                "jquery",
+                "underscore"
+            ],
+            "exports": "Backbone"
         }
     }
 };
@@ -39,11 +56,23 @@ if (typeof require !== "undefined" && require.config) {
         {
             "name": "bootstrap",
             "location": "js/bootstrap"
+        },
+        {
+            "name": "backbone",
+            "location": "js/backbone",
+            "main": "backbone.js"
         }
     ],
     "shim": {
         "underscore": {
             "exports": "_"
+        },
+        "backbone": {
+            "deps": [
+                "jquery",
+                "underscore"
+            ],
+            "exports": "Backbone"
         }
     }
 });
@@ -64,11 +93,23 @@ else {
         {
             "name": "bootstrap",
             "location": "js/bootstrap"
+        },
+        {
+            "name": "backbone",
+            "location": "js/backbone",
+            "main": "backbone.js"
         }
     ],
     "shim": {
         "underscore": {
             "exports": "_"
+        },
+        "backbone": {
+            "deps": [
+                "jquery",
+                "underscore"
+            ],
+            "exports": "Backbone"
         }
     }
 };

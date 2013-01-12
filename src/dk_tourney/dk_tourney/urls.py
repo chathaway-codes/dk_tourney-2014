@@ -3,6 +3,7 @@ from django.conf import settings
 
 from django.views.generic import TemplateView
 
+from rest_api.apis import raw
 import tournament.urls
 from tournament.views import TournamentListView
 
@@ -21,7 +22,13 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^tournament/', include(tournament.urls))
+    url(r'^tournament/', include(tournament.urls)),
+
+    # Login URL
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+
+    # REST API
+    url(r'^api/', include(raw.api.urls)),
 )
 
 if settings.DEBUG:

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load player_tags %}
+
+{% block extra-head %}
+    <script type="text/javascript" data-main="{{ STATIC_URL }}js/c/player_edit" src="{{ STATIC_URL }}js/require.js"></script>
+{% endblock %}
+
+{% block title %}Profiles{% endblock %}
+{% block profiles %}class="active"{% endblock %}
+
+{% block content %}
+    <div id="main"></div>
+{% endblock %}
