@@ -10,4 +10,4 @@ class TournamentListView(ListView):
 
 class TournamentDetailedView(DetailView):
     model = Tournament
-    context_object_name = 'list'
+    context_object_name = 'tourney'
