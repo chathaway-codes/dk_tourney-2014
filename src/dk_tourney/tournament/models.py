@@ -6,6 +6,7 @@ class Player(models.Model):
     user = models.OneToOneField(User)
 
     handle = models.CharField(max_length=255, null=True, blank=True)
+    games = models.ManyToManyField('Game')
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
