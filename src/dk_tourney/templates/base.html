@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Digital Khaos 2013</title>
+        <link rel="Stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
+        {% block extra-head %}{% endblock %}
+    </head>
+    <body>
+        <div id="header">
+        </div>
+        <div id="content">
+        {% block content %}
+        {% endblock %}
+        </div>
+        <div id="footer">
+        </div>
+    </body>
+</html>

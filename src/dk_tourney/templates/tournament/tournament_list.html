@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="tournament_list list">
+    <tr>
+        <th>Game</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Teams?</th>
+        <th>Registered</th>
+    </tr>
+{% if list %}
+    {% for l in list %}
+        <tr>
+            <td>{{ l.game.name }}</td>
+            <td>{{ l.name }}</td>
+            <td>{{ l.description }}</td>
+            <td>{{ l.team_game }}</td>
+            <td>
+            {% if l.team_game == true %}
+                {{ l.team_set.count }}
+            {% else %}
+                {{ l.players.count }}
+            {% endif %}
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td>No games added!</td>
+    </tr>
+{% endif %}
+</table>
+{% endblock %}
