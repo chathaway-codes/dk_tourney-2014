@@ -10,6 +10,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Number of players</th>
+        <th></th>
     </tr>
 {% if list %}
     {% for l in list %}
@@ -17,6 +18,12 @@
             <td><a href="{% url 'game_detail' pk=l.id %}">{{ l.name }}</td>
             <td>{{ l.description }}</td>
             <td>{{ l.player_set.count }}</td>
+            <td>
+            {% if l in user.player.games.all %}
+            {% else %}
+            <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
+            {% endif %}
+            </td>
         </tr>
     {% endfor %}
 {% else %}
