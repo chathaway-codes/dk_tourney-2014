@@ -30,6 +30,10 @@ class PlayerListView(ListView):
     model = Player
     context_object_name = 'list'
 
+class PlayerDetailView(DetailView):
+    model = Player
+    context_object_name = 'player'
+
 @login_required
 def interest_in_game(request, pk, **kwargs):
     game = get_object_or_404(Game, pk=pk)

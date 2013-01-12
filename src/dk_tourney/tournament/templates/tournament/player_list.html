@@ -19,7 +19,7 @@
 {% if list %}
     {% for l in list %}
         <tr>
-            <td>{{ l.get_name }}</td>
+            <td><a href="{% url 'player_detail' pk=l.id %}">{{ l.get_name }}</a></td>
             <td>{{ l.user.date_joined }} </td>
             <td>{{ l.user|get_registered_tournaments_count }}</td>
             <td>{{ l.games.count }}</td>

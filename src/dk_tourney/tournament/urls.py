@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from tournament.views import TournamentListView, TournamentDetailView, GameListView, GameDetailView, PlayerListView, interest_in_game
+from tournament.views import TournamentListView, TournamentDetailView, GameListView, GameDetailView, PlayerListView, PlayerDetailView, interest_in_game
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^games/(?P<pk>\d+)/interested$', interest_in_game, {}, 'game_interest_added'),
 
     url(r'^profiles/$', PlayerListView.as_view(), {}, 'profile_list'),
+    url(r'^profiles/(?P<pk>\d+)/$', PlayerDetailView.as_view(), {}, 'player_detail'),
 )
 

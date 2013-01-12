@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 
 class Player(models.Model):
     user = models.OneToOneField(User)
+    description = models.TextField(null=True, blank=True)
+
+    image = models.ImageField(upload_to="players/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
     handle = models.CharField(max_length=255, null=True, blank=True)
     games = models.ManyToManyField('Game', blank=True)
@@ -19,10 +22,10 @@ class Player(models.Model):
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=4096)
+    description = models.TextField()
     image = models.ImageField(upload_to="games/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
-    platform = models.ForeignKey('Platform')
+    platforms = models.ForeignKey('Platform')
 
     def __unicode__(self):
         return self.name
@@ -42,7 +45,7 @@ class Computer(models.Model):
     ram = models.CharField(max_length=255, null=True, blank=True)
     hdd = models.CharField(max_length=255, null=True, blank=True)
 
-    other = models.CharField(max_length=4096, null=True, blank=True)
+    other = models.TextField(null=True, blank=True)
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
@@ -55,7 +58,7 @@ class Team(models.Model):
 
 class Tournament(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=4096)
+    description = models.TextField()
 
     game = models.ForeignKey('Game')
     team_game = models.BooleanField()
@@ -63,5 +66,8 @@ class Tournament(models.Model):
 
     players = models.ManyToManyField(User, blank=True)
 
-    def __unicode__(self):
+    def get_name(self):
         return self.game.name + ' -- ' + self.name
+
+    def __unicode__(self):
+        return self.get_name()

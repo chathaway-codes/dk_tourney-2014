@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load player_tags %}
+
+{% block title %}{{ player.get_name }}{% endblock %}
+{% block profiles %}class="active"{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="span2">
+                {% if player.image %}
+                    <img class="img-polaroid" src="{{ player.image.url }}" />
+                {% else %}
+                    <img src="{{ STATIC_URL }}img/avatar.png" />
+                {% endif %}
+            </div>
+            <div class="span9">
+                <!-- User description of themselves, if applicable -->
+                {% if player.description %}
+                <p>{{ player.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <!-- List of all games the person owns -->
+                <h3>Games I'm interested in</h3>
+                {% if player.games.count == 0 %}
+                    <h4>I haven't shown an interest in any games yet</h4>
+                {% else %}
+                    <ul class="unstyled lead">
+                    {% for g in player.games.all %}
+                    <li><a href="{% url 'game_detail' pk=g.id %}">{{ g.name }}</a></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- The tournaments they are registered for -->
+                <h3>Tournaments I'm registered for</h3>
+                {% if player.user|get_registered_tournaments_count == 0 %}
+                    <h4>I'm not registered for any tournaments yet</h4>
+                {% else %}
+                    <ul class="unstyled lead">
+                    {% for t in player.user|get_registered_tournaments %}
+                    <li><a href="{% url 'tournament_detail' pk=t.id %}">{{ t.get_name }}</a></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- Teams they are on -->
+                <h3>Teams I'm part of</h3>
+                {% if player.user.team_set.count == 0 %}
+                    <h4>I'm not on any teams yet</h4>
+                {% else %}
+                    <ul class="unstyled lead">
+                    {% for t in player.user.team_set.all %}
+                    <li><a href="#">{{ t.name }}</a></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- Platforms they use -->
+                <h3>Gaming devices I own</h3>
+                {% if player.platforms.count == 0 %}
+                    <h4>I don't have any gaming devices</h4>
+                {% else %}
+                    <ul class="unstyled lead">
+                    {% for t in player.platforms.all %}
+                    <li>{{ t.name }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
