@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ game.name }}{% endblock %}
+{% block games %}class="active"{% endblock %}
+
+{% block content %}
+<p>{{ game.description }}</p>
+<h2>Available Tournaments</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th># Registered</th>
+    </tr>
+{% for t in game.tournament_set.all %}
+    <tr>
+        <td>{{ t.name }}</td>
+        <td>{{ t.description }}</td>
+        <td>
+        {% if t.team_game == true %}
+            {{ t.team_set.count }}
+        {% else %}
+            {{ t.players.count }}
+        {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+
+{% endblock %}
