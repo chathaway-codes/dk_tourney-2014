@@ -44,6 +44,7 @@ class Computer(models.Model):
     gpu = models.CharField(max_length=255, null=True, blank=True)
     ram = models.CharField(max_length=255, null=True, blank=True)
     hdd = models.CharField(max_length=255, null=True, blank=True)
+    wat = models.PositiveIntegerField(null=True, blank=True)
 
     other = models.TextField(null=True, blank=True)
 

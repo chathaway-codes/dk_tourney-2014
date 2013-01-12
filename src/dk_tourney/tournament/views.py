@@ -46,3 +46,16 @@ def interest_in_game(request, pk, **kwargs):
     else:
         request.user.player.games.remove(game)
         return render_to_response('tournament/game_list.html', {"message":"Your lack of interest has been noted!", "list":games}, context_instance=RequestContext(request))
+
+@login_required
+def tournament_reg(request, pk, **kwargs):
+    tournament = get_object_or_404(Tournament, pk=pk)
+
+    players = Player.objects.all()
+
+    if request.user.tournament_set.filter(pk=tournament.id).count() == 0:
+        request.user.tournament_set.add(tournament)
+        return render_to_response('tournament/tournament_list.html', {"message":"You have been registered.", "list":Tournament.objects.all}, context_instance=RequestContext(request))
+    else:
+        request.user.tournament_set.remove(tournament)
+        return render_to_response('tournament/tournament_list.html', {"message":"You have been unregistered.", "list":Tournament.objects.all}, context_instance=RequestContext(request))
