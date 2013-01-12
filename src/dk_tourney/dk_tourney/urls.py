@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.views.generic import TemplateView
 
+import tournament.urls
 from tournament.views import TournamentListView
 
 # Uncomment the next two lines to enable the admin:
@@ -19,5 +20,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^tournaments/$', TournamentListView.as_view(), {}, 'tournament_list'),
+    url(r'^tournament/', include(tournament.urls))
 )

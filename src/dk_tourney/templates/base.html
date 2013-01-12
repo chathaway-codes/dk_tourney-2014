@@ -35,6 +35,9 @@
                             <li {% block games %}{% endblock %}><a href="#">Games</a></li>
                             <li {% block tournaments %}{% endblock %}><a href="{% url 'tournament_list' %}">Tournaments</a></li>
                             <li {% block profile %}{% endblock %}><a href="#">Profile</a></li>
+                            {% if user.is_staff %}
+                            <li> <a href="{% url 'admin:index' %}">Admin</a></li>
+                            {% endif %}
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
