@@ -11,6 +11,15 @@ class Game(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=4096)
 
+    PLATFORM_CHOICES = (
+        ("PS3", "Playstation 3"),
+        ("360", "XBox 360"),
+        ("N64", "Nintendo 64"),
+        ("PC", "Computer"),
+    )
+
+    platform = models.CharField(max_length=3, choices=PLATFORM_CHOICES)
+
     def __unicode__(self):
         return self.name
 
@@ -35,4 +44,3 @@ class Tournament(models.Model):
 
     def __unicode__(self):
         return self.game.name + ' -- ' + self.name
-
