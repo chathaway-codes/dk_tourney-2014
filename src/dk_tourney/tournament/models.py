@@ -28,7 +28,7 @@ class Team(models.Model):
     name = models.CharField(max_length=255)
 
     members = models.ManyToManyField(User)
-    tournaments = models.ManyToManyField('Tournament')
+    tournaments = models.ManyToManyField('Tournament', blank=True)
 
     def __unicode__(self):
         return self.name

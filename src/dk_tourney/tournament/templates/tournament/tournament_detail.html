@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tourney.name }}{% endblock %}
+{% block tournaments %}class="active"{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+    <tr>
+        <td>Name</td>
+        <td>{{ tourney.name }}</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>{{ tourney.description }}</td>
+    </tr>
+    <tr>
+        <td>Game</td>
+        <td>{{ tourney.game }}</td>
+    </tr>
+    {% if tourney.team_game %}
+    <tr>
+        <td>Size of teams</td>
+        <td>{{ tourney.team_size }}</td>
+    </tr>
+    <tr>
+        <td>Teams playing</td>
+        <td>
+            <ul>
+            {% for t in tourney.team_set.all %}
+                <li>{{ t.name }}</li>
+            {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td>No teams</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Players</td>
+        <td>
+            <ul>
+                {% for p in tourney.players.all %}
+                <li>{{ p.player.handle }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    {% endif %}
+{% endblock %}
