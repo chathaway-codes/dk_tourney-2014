@@ -7,7 +7,8 @@
     "dependencies": {
       "jquery": "1.7.1",
       "underscore": null,
-      "bootstrap": null
+      "bootstrap": null,
+      "backbone": null
     }
   }
 }

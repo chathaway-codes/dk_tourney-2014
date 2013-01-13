@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic import TemplateView
 
 from tournament.views import TournamentListView, TournamentDetailView, GameListView, GameDetailView, PlayerListView, PlayerDetailView, interest_in_game, tournament_reg
 
@@ -18,5 +19,6 @@ urlpatterns = patterns('',
 
     url(r'^profiles/$', PlayerListView.as_view(), {}, 'profile_list'),
     url(r'^profiles/(?P<pk>\d+)/$', PlayerDetailView.as_view(), {}, 'player_detail'),
+    url(r'^profiles/(?P<pk>\d+)/edit$',TemplateView.as_view(template_name="tournament/player_edit.html"), {}, 'player_edit'),
 )
 
