@@ -6,5 +6,36 @@
 {% block home %}class="active"{% endblock %}
 
 {% block content %}
-Stuff goes here!
+    <div class="row">
+        <div class="span8">
+            <div style="background:#000;width:350px; height:260px;font:0px sans-serif;text-align:left;float: right;"><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="cdtw" width="350" height="240" style="outline:none"><param name="movie" value="http://cdn.countingdownto.com/c/w.swf" /><param name="flashvars" value="eid=216034" /><param name="allowscriptaccess" value="always" /><param name="bgcolor" value="#000000" /><embed name="cdtw" src="http://cdn.countingdownto.com/c/w.swf" flashvars="eid=216034" type="application/x-shockwave-flash" width="350" height="240" allowscriptaccess="always" bgcolor="#000000" style="outline:none"></embed></object><br/> <a href="http://countingdownto.com" style="font:bold 8px Arial;padding-left:19px;color:#444;">COUNTDOWN WIDGETS</a></div>
+            <p>Digital Khaos is an annual LAN party hosted by Vermont Technical College. It is run entirely by a student organization
+                known as "The Adventures Guild". All the organization, networking, software development, and marketing is done
+                by students in the club.</p>
+             <p>Last year, we had over 75 students show up for the whole 2-day event. We invite all Vermont Tech students to come this
+                year, and bring a friend! If you want to come, but you're not a student and don't know any students, shoot an email
+                to **email here**. We'll see if we can fit you in!</p>
+            <p>Happy gaming!</p>
+        </div>
+        <div class="span2">
+            {% if not user.is_authenticated %}
+                <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Login</legend>
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+
+                        <input type="submit" class="btn" value="Login" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        or <a href="{% url 'registration_register' %}">Register</a>
+                    </fieldset% >
+                </form>
+            {% else %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

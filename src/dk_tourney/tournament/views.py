@@ -3,11 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.template import RequestContext, loader
 from django.views.generic import ListView
+from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.detail import DetailView
+from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
 
 from tournament.models import Tournament, Game, Player
+from tournament.forms import PlayerForm
 
 class TournamentListView(ListView):
     model = Tournament
@@ -59,3 +62,16 @@ def tournament_reg(request, pk, **kwargs):
     else:
         request.user.tournament_set.remove(tournament)
         return render_to_response('tournament/tournament_list.html', {"message":"You have been unregistered.", "list":Tournament.objects.all}, context_instance=RequestContext(request))
+
+class PlayerEditView(UpdateView):
+    form_class = PlayerForm
+    model = Player
+
+class PlayerCreateView(CreateView):
+    form_class = PlayerForm
+    model = Player
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(PlayerCreateView, self).form_valid(form)
+

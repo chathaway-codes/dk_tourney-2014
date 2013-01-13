@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block content %}
+    <form class="form-horizontal" method="post" action="{% url 'registration_register' %}">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="control-group">
+                {{ field.errors }}
+                <label for="id_{{ field.html_name }}" class="control-label">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+        <input type="submit" class="btn" value="Submit" />
+    </form>
+{% endblock %}

@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.urlresolvers import reverse
+
 
 from django.contrib.auth.models import User
 
@@ -19,6 +21,9 @@ class Player(models.Model):
 
     def __unicode__(self):
         return self.get_name()
+
+    def get_absolute_url(self):
+        return reverse('player_detail', kwargs={'pk': self.pk})
 
 class Game(models.Model):
     name = models.CharField(max_length=255)

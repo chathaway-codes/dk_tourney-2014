@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from django.views.generic import TemplateView
 
@@ -12,9 +13,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', TemplateView.as_view(template_name="home.html"), {}, 'home'),
-    # url(r'^dk_tourney/', include('dk_tourney.foo.urls')),
+    url(r'^$', login_required(TemplateView.as_view(template_name="home.html")), {}, 'home'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -24,8 +23,11 @@ urlpatterns = patterns('',
 
     url(r'^tournament/', include(tournament.urls)),
 
+    # Registration URL
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+
     # Login URL
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'home.html'}),
 
     # REST API
     url(r'^api/', include(raw.api.urls)),

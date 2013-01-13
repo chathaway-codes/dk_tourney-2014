@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load player_tags %}
+
+{% block extra-head %}
+    <script type="text/javascript" data-main="c/player_edit" src="{{ STATIC_URL }}js/components/requirejs/require.js"></script>
+{% endblock %}
+
+{% block title %}Edit profile{% endblock %}
+{% block profiles %}class="active"{% endblock %}
+
+{% block content %}
+    <form class="form-horizontal" method="post" action="{% url 'player_create' pk=user.id %}">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="control-group">
+                {{ field.errors }}
+                <label for="id_{{ field.html_name }}" class="control-label">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+        <input type="submit" class="btn" value="Submit" />
+    </form>
+{% endblock %}

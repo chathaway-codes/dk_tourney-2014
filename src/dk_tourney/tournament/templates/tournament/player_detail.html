@@ -72,7 +72,7 @@
                     </ul>
                 {% endif %}
                 {% if user.id == player.user.id %}
-                    <div><a href="{% url 'player_edit' pk=user.id %}">Edit your profile</a></div>
+                    <div><a href="{% url 'player_edit' pk=user.player.id %}">Edit your profile</a></div>
                 {% endif %}
             </div>
         </div>
