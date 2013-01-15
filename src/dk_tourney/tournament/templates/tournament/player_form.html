@@ -10,7 +10,7 @@
 {% block profiles %}class="active"{% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" method="post" action="{% url 'player_create' pk=user.id %}">
+    <form class="form-horizontal" method="post" action="{% url 'player_edit' pk=user.player.id %}">
         {% csrf_token %}
         {% for field in form %}
             <div class="control-group">

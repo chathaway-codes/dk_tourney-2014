@@ -139,7 +139,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 ABSOLUTE_URL_OVERRIDES = {
-    "auth.user": lambda o: "/tournament/profiles/%s/create" % o.id
+    "auth.user": lambda o: "/tournament/profiles/%s/edit" % o.player.id
 }
 
 # A sample logging configuration. The only tangible logging

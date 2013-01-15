@@ -77,3 +77,6 @@ class Tournament(models.Model):
 
     def __unicode__(self):
         return self.get_name()
+
+# Include the signals
+import tournament.signals
