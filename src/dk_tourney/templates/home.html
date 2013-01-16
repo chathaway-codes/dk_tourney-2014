@@ -7,8 +7,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="span8">
-            <div style="background:#000;width:350px; height:260px;font:0px sans-serif;text-align:left;float: right;"><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="cdtw" width="350" height="240" style="outline:none"><param name="movie" value="http://cdn.countingdownto.com/c/w.swf" /><param name="flashvars" value="eid=216034" /><param name="allowscriptaccess" value="always" /><param name="bgcolor" value="#000000" /><embed name="cdtw" src="http://cdn.countingdownto.com/c/w.swf" flashvars="eid=216034" type="application/x-shockwave-flash" width="350" height="240" allowscriptaccess="always" bgcolor="#000000" style="outline:none"></embed></object><br/> <a href="http://countingdownto.com" style="font:bold 8px Arial;padding-left:19px;color:#444;">COUNTDOWN WIDGETS</a></div>
+        <div class="span4">
             <p>Digital Khaos is an annual LAN party hosted by Vermont Technical College. It is run entirely by a student organization
                 known as "The Adventures Guild". All the organization, networking, software development, and marketing is done
                 by students in the club.</p>
@@ -16,6 +15,9 @@
                 year, and bring a friend! If you want to come, but you're not a student and don't know any students, shoot an email
                 to **email here**. We'll see if we can fit you in!</p>
             <p>Happy gaming!</p>
+        </div>
+        <div class="span5">
+            <div style="background:#000;width:350px; height:260px;font:0px sans-serif;text-align:left;float: right;"><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="cdtw" width="350" height="240" style="outline:none"><param name="movie" value="http://cdn.countingdownto.com/c/w.swf" /><param name="flashvars" value="eid=216034" /><param name="allowscriptaccess" value="always" /><param name="bgcolor" value="#000000" /><embed name="cdtw" src="http://cdn.countingdownto.com/c/w.swf" flashvars="eid=216034" type="application/x-shockwave-flash" width="350" height="240" allowscriptaccess="always" bgcolor="#000000" style="outline:none"></embed></object><br/> <a href="http://countingdownto.com" style="font:bold 8px Arial;padding-left:19px;color:#444;">COUNTDOWN WIDGETS</a></div>
         </div>
         <div class="span2">
             {% if not user.is_authenticated %}

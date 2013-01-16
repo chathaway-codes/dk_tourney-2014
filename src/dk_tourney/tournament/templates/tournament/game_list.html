@@ -12,7 +12,7 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Number of players</th>
+        <th># of players</th>
         <th></th>
     </tr>
 {% if list %}
@@ -22,10 +22,12 @@
             <td>{{ l.description|truncatewords:10 }}</td>
             <td>{{ l.player_set.count }}</td>
             <td>
-            {% if l in user.player.games.all %}
-            <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
-            {% else %}
-            <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
+            {% if user.is_authenticated %}
+                {% if l in user.player.games.all %}
+                <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
+                {% else %}
+                <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
+                {% endif %}
             {% endif %}
             </td>
         </tr>

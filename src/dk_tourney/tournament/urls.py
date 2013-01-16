@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 
-from tournament.views import TournamentListView, TournamentDetailView, GameListView, GameDetailView, PlayerListView, PlayerDetailView, PlayerEditView, PlayerCreateView, interest_in_game, tournament_reg
+from tournament.views import TournamentListView, TournamentDetailView, GameListView, GameDetailView, PlayerListView, PlayerDetailView, PlayerEditView, PlayerCreateView, interest_in_game, tournament_reg, ComputerEditView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -24,5 +24,7 @@ urlpatterns = patterns('',
     #url(r'^profiles/(?P<pk>\d+)/edit$',TemplateView.as_view(template_name="tournament/player_edit.html"), {}, 'player_edit'),
     url(r'^profiles/(?P<pk>\d+)/edit$', login_required(PlayerEditView.as_view()), {}, 'player_edit'),
     url(r'^profiles/(?P<pk>\d+)/create$', login_required(PlayerCreateView.as_view()), {}, 'player_create'),
+
+    url(r'^computers/(?P<pk>\d+)/edit$', login_required(ComputerEditView.as_view()), {}, 'computer_edit'),
 )
 

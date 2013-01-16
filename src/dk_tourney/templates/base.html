@@ -3,8 +3,8 @@
 <html>
     <head>
         <title>Digital Khaos 2013</title>
-        <link rel="Stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
         <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" media="screen">
         <style>
         body {
             padding-top: 60px;
@@ -14,7 +14,7 @@
             window.API_RAW = "{% url 'api_raw_top_level' api_name="raw" %}";
             window.STATIC_URL = "{{ STATIC_URL }}";
         </script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/require.config.js"></script>
+        <!--<script type="text/javascript" src="{{ STATIC_URL }}js/require.config.js"></script>-->
 
         {% block extra-head %}{% endblock %}
     </head>
@@ -25,11 +25,14 @@
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar">Hello, {{ user.player }}</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="#">Digial Khaos 2013</a>
+                    {% if user.is_authenticated %}
+                        <p class="navbar-text pull-right">Hi, {{ user.player }}</p>
+                    {% endif %}
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li {% block home %}{% endblock %}><a href="{% url 'home' %}">Home</a></li>

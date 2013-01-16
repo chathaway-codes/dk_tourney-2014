@@ -20,9 +20,6 @@
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 
-<!-- Container -->
-<div id="container">
-
     {% if not is_popup %}
     <!-- Header -->
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -44,7 +41,7 @@
                                     <li {% block profiles %}{% endblock %} style="list-style: none; text-decoration: none; list-style-type: none; font-size: 14px;"><a href="{% url 'player_detail' pk=user.player.id %}">My Profile</a></li>
                                 {% endif %}
                                 {% if user.is_staff %}
-                                    <li style="list-style: none; text-decoration: none; list-style-type: none; font-size: 14px;"> <a href="{% url 'admin:index' %}">Admin</a></li>
+                                    <li class="active" style="list-style: none; text-decoration: none; list-style-type: none; font-size: 14px;"> <a href="{% url 'admin:index' %}">Admin</a></li>
                                 {% endif %}
                                 <li style="list-style: none; text-decoration: none; list-style-type: none; font-size: 14px;"><a href="{% url 'auth_logout' %}">Log out</a></li>
                             {% endif %}
@@ -53,6 +50,9 @@
                 </div>
             </div>
         </div>
+
+    <!-- Container -->
+    <div id="container" style="padding-top: 60px;">
 
     <!-- END Header -->
     {% block breadcrumbs %}

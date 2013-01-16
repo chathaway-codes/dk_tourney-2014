@@ -20,8 +20,8 @@ class Player(models.Model):
     image = models.ImageField(upload_to="players/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
     handle = models.CharField(max_length=255, null=True, blank=True)
-    games = models.ManyToManyField('Game', blank=True)
-    platforms = models.ManyToManyField('Platform', blank=True)
+    games = models.ManyToManyField('Game', null=True, blank=True)
+    platforms = models.ManyToManyField('Platform', null=True, blank=True)
 
     def get_name(self):
         if self.handle != None and self.handle != "":
@@ -54,7 +54,7 @@ class Platform(models.Model):
         return self.name
 
 class Computer(models.Model):
-    models.ForeignKey(Player)
+    player = models.OneToOneField('Player')
 
     cpu = models.CharField(max_length=255, null=True, blank=True)
     gpu = models.CharField(max_length=255, null=True, blank=True)

@@ -22,20 +22,22 @@
                 {% endif %}
             </div>
         </div>
+        {% if player.games.count != 0 %}
         <div class="row">
             <div class="span12">
                 <!-- List of all games the person owns -->
                 <h3>Games I'm interested in</h3>
-                {% if player.games.count == 0 %}
-                    <h4>I haven't shown an interest in any games yet</h4>
-                {% else %}
                     <ul class="unstyled lead">
                     {% for g in player.games.all %}
                     <li><a href="{% url 'game_detail' pk=g.id %}">{{ g.name }}</a></li>
                     {% endfor %}
                     </ul>
-                {% endif %}
-
+            </div>
+        </div>
+        {% endif %}
+        {% if player.tournament_set.count != 0 %}
+        <div class="row">
+            <div class="span12">
                 <!-- The tournaments they are registered for -->
                 <h3>Tournaments I'm registered for</h3>
                 {% if player.user|get_registered_tournaments_count == 0 %}
@@ -47,19 +49,29 @@
                     {% endfor %}
                     </ul>
                 {% endif %}
-
+            </div>
+        </div>
+        {% endif %}
+        {% if player.team_set.count != 0 %}
+        <div class="row">
+            <div class="span12">
                 <!-- Teams they are on -->
                 <h3>Teams I'm part of</h3>
                 {% if player.user.team_set.count == 0 %}
                     <h4>I'm not on any teams yet</h4>
                 {% else %}
                     <ul class="unstyled lead">
-                    {% for t in player.user.team_set.all %}
+                    {% for t in player.team_set.all %}
                     <li><a href="#">{{ t.name }}</a></li>
                     {% endfor %}
                     </ul>
                 {% endif %}
-
+            </div>
+        </div>
+        {% endif %}
+        {% if player.platforms.count != 0 %}
+        <div class="row">
+            <div class="span12">
                 <!-- Platforms they use -->
                 <h3>Gaming devices I own</h3>
                 {% if player.platforms.count == 0 %}
@@ -67,12 +79,18 @@
                 {% else %}
                     <ul class="unstyled lead">
                     {% for t in player.platforms.all %}
-                    <li>{{ t.name }}</li>
+                        <li>{{ t.name }}</li>
                     {% endfor %}
                     </ul>
                 {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="span12">
                 {% if user.id == player.user.id %}
                     <div><a href="{% url 'player_edit' pk=user.player.id %}">Edit your profile</a></div>
+                    <div><a href="{% url 'computer_edit' pk=user.player.computer.id %}">Edit my computer</a></div>
                 {% endif %}
             </div>
         </div>
