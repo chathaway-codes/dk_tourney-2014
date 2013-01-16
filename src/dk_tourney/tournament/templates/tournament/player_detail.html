@@ -42,7 +42,7 @@
                     <h4>I'm not registered for any tournaments yet</h4>
                 {% else %}
                     <ul class="unstyled lead">
-                    {% for t in player.user|get_registered_tournaments %}
+                    {% for t in player|get_registered_tournaments %}
                     <li><a href="{% url 'tournament_detail' pk=t.id %}">{{ t.get_name }}</a></li>
                     {% endfor %}
                     </ul>

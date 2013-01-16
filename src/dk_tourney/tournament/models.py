@@ -4,6 +4,15 @@ from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
 
+class File(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    file = models.FileField(upload_to="file/%Y-%m-%d %H:%M:%S-")
+
+    def __unicode__(self):
+        return self.name
+
 class Player(models.Model):
     user = models.OneToOneField(User)
     description = models.TextField(null=True, blank=True)
@@ -15,7 +24,7 @@ class Player(models.Model):
     platforms = models.ManyToManyField('Platform', blank=True)
 
     def get_name(self):
-        if self.handle != "":
+        if self.handle != None and self.handle != "":
             return self.handle
         return self.user.username
 
@@ -30,6 +39,8 @@ class Game(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to="games/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
+    files = models.ManyToManyField('File')
+
     platforms = models.ForeignKey('Platform')
 
     def __unicode__(self):
@@ -43,7 +54,7 @@ class Platform(models.Model):
         return self.name
 
 class Computer(models.Model):
-    models.ForeignKey(User)
+    models.ForeignKey(Player)
 
     cpu = models.CharField(max_length=255, null=True, blank=True)
     gpu = models.CharField(max_length=255, null=True, blank=True)
@@ -56,7 +67,7 @@ class Computer(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=255)
 
-    members = models.ManyToManyField(User)
+    members = models.ManyToManyField(Player)
     tournaments = models.ManyToManyField('Tournament', blank=True)
 
     def __unicode__(self):
@@ -70,7 +81,7 @@ class Tournament(models.Model):
     team_game = models.BooleanField()
     team_size = models.IntegerField(null=True, blank=True)
 
-    players = models.ManyToManyField(User, blank=True)
+    players = models.ManyToManyField(Player, blank=True)
 
     def get_name(self):
         return self.game.name + ' -- ' + self.name

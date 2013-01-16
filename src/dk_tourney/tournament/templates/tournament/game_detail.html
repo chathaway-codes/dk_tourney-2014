@@ -34,14 +34,38 @@
 {% endfor %}
 </table>
 
-<h2>People who will be playing</h2>
-<p>
-{% for p in game.player_set.all %}
-{% if forloop.counter != 1 %}
-, 
+{% if game.files.count > 0 %}
+    <h2>Associated files</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>File</th>
+            <th>Description</ht>
+        <tr>
+        {% for f in game.files.all %}
+            <tr>
+                <td><a href="{{ f.file.url }}">{{ f.name }}</a></td>
+                <td>{{ f.description }}</td>
+            </tr>
+         {% endfor %}
+     </table>
 {% endif %}
-<a href="{% url 'player_detail' pk=p.id %}">{{ p }}</a>
-{% endfor %}
-</p>
 
+{% if game.player_set.count > 0 %}
+	<h2>People who will be playing</h2>
+	<div class="row">
+	{% for p in game.player_set.all %}
+	    {% if forloop.counter|divisibleby:"6" %}
+	        </div><div class="row">
+	    {% endif %}
+	    <div class="span1"><a href="{% url 'player_detail' pk=p.id %}">
+	        {% if p.image %}
+	            <img class="img-polaroid" src="{{ p.image.url }}" />
+	        {% else %}
+	            <img src="{{ STATIC_URL }}img/avatar.png" />
+	        {% endif %}
+	    </a></div>
+	    <div class="span1"><a href="{% url 'player_detail' pk=p.id %}">{{ p }}</a></div>
+	{% endfor %}
+	</div>
+{% endif %}
 {% endblock %}
