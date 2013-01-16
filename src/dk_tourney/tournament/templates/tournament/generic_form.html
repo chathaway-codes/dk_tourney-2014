@@ -1,0 +1,18 @@
+    {% if form.is_multipart %}
+    <form class="form-horizontal" method="post" action="{{ action }}" enctype="multipart/form-data">
+    {% else %}
+    <form class="form-horizontal" method="post" action="{{ action }}" enctype="multipart/form-data">
+    {% endif %}
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="control-group">
+                {{ field.errors }}
+                <label for="id_{{ field.html_name }}" class="control-label">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+        <input type="submit" class="btn" value="Submit" />
+    </form>
+

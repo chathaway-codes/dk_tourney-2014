@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'registration',
+    'django_wysiwyg',
     'tastypie',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -137,6 +138,10 @@ INSTALLED_APPS = (
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+
+DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
+#DJANGO_WYSIWYG_FLAVOR = "tinymce"
+#DJANGO_WYSIWYG_MEDIA_URL = STATIC_URL + 'tiny_mce/'*/
 
 ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda o: "/tournament/profiles/%s/edit" % o.player.id

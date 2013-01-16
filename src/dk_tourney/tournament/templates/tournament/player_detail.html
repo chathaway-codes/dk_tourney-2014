@@ -18,7 +18,7 @@
             <div class="span9">
                 <!-- User description of themselves, if applicable -->
                 {% if player.description %}
-                <p>{{ player.description }}</p>
+                <p>{{ player.description|safe }}</p>
                 {% endif %}
             </div>
         </div>
