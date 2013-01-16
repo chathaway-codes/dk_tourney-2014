@@ -39,7 +39,7 @@ class Game(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to="games/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
-    files = models.ManyToManyField('File')
+    files = models.ManyToManyField('File', blank=True)
 
     platforms = models.ForeignKey('Platform')
 
