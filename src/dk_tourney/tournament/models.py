@@ -15,13 +15,13 @@ class File(models.Model):
 
 class Player(models.Model):
     user = models.OneToOneField(User)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(help_text="Put some information about yourself here. This will be visible to the world", null=True, blank=True)
 
-    image = models.ImageField(upload_to="players/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
+    image = models.ImageField(help_text="Make it unique and memorable!", upload_to="players/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
 
-    handle = models.CharField(max_length=255, null=True, blank=True)
-    games = models.ManyToManyField('Game', null=True, blank=True)
-    platforms = models.ManyToManyField('Platform', null=True, blank=True)
+    handle = models.CharField(max_length=255, help_text="This is an alias for yourself. This will appear everywhere instead of your username", null=True, blank=True)
+    games = models.ManyToManyField('Game', help_text="Please select the games you would like to play", null=True, blank=True)
+    platforms = models.ManyToManyField('Platform', help_text="Please select a few platforms you own", null=True, blank=True)
 
     def get_name(self):
         if self.handle != None and self.handle != "":
