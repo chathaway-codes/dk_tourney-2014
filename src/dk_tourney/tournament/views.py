@@ -9,8 +9,8 @@ from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
 
-from tournament.models import Tournament, Game, Player, Computer
-from tournament.forms import PlayerForm, ComputerForm
+from tournament.models import Tournament, Game, Player, Computer, Team, TeamInvite
+from tournament.forms import PlayerForm, ComputerForm, TeamForm, TeamInviteForm
 
 class TournamentListView(ListView):
     model = Tournament
@@ -78,3 +78,27 @@ class PlayerCreateView(CreateView):
 class ComputerEditView(UpdateView):
     form_class = ComputerForm
     model = Computer
+
+class TeamListView(ListView):
+    model = Team
+    context_object_name = 'list'
+
+class TeamDetailView(DetailView):
+    model = Team
+    context_object_name = 'team'
+
+class TeamEditView(UpdateView):
+    form_class = TeamForm
+    model = Team
+
+class TeamCreateView(CreateView):
+    form_class = TeamForm
+    model = Team
+
+class TeamInviteCreateView(CreateView):
+    form_class = TeamInviteForm
+    model = TeamInvite
+
+    def form_valid(self, form):
+        form.instance.team = Team.objects.get(pk=self.kwargs['pk'])
+        return super(TeamInviteCreateView, self).form_valid(form)

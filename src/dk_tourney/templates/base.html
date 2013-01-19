@@ -37,7 +37,6 @@
                         <ul class="nav">
                             <li {% block home %}{% endblock %}><a href="{% url 'home' %}">Home</a></li>
                             <li {% block games %}{% endblock %}><a href="{% url 'game_list' %}">Games</a></li>
-                            <li {% block tournaments %}{% endblock %}><a href="{% url 'tournament_list' %}">Tournaments</a></li>
                             {% if user.is_authenticated %}
                                 {% if user.player %}
                                     <li {% block profiles %}{% endblock %}><a href="{% url 'player_detail' pk=user.player.id %}">My Profile</a></li>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load team_tags %}
+
+{% block title %}{{ team }}{% endblock %}
+{% block profiles %}class="active"{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% if team.members.count != 0 %}
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <h3>Players</h3>
+                        </div>
+                    </div>
+                    {% for p in team|get_team_members %}
+                        <div class="row-fluid">
+                            <div class="span12">
+                                {{ p }}
+                            </div>
+                        </div>
+                    {% endfor %}
+        {% endif %}
+        {% if team.tournaments.count != 0 %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <h3>Tournaments</h3>
+                </div>
+            </div>
+            {% for t in team.tournaments.all %}
+                <div class="row-fluid">
+                    <div class="span12">
+                        <a href="#">{{ t }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="row-fluid">
+            {% if team.lead == user.player %}
+            <div class="span12">
+                <a href="{% url 'teaminvite_create' pk=team.id %}">Invite a player to the team</a>
+            </div>
+            {% endif %}
+        </div>
+       </div>
+    </div>
+{% endblock %}

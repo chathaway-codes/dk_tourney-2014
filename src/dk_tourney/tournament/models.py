@@ -64,10 +64,25 @@ class Computer(models.Model):
 
     other = models.TextField(null=True, blank=True)
 
+class TeamInvite(models.Model):
+    team = models.ForeignKey('Team')
+    player = models.ForeignKey('Player')
+
+    when = models.DateTimeField(auto_now_add=True)
+    accepted = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.team.name + " invites " + self.player.get_name()
+
+    def get_absolute_url(self):
+        return reverse('team_detail', kwargs={'pk': self.team.id})
+
 class Team(models.Model):
     name = models.CharField(max_length=255)
 
-    members = models.ManyToManyField(Player)
+    lead = models.ForeignKey('Player', related_name="team_lead_set")
+
+    members = models.ManyToManyField('Player', through='TeamInvite')
     tournaments = models.ManyToManyField('Tournament', blank=True)
 
     def __unicode__(self):
@@ -80,8 +95,6 @@ class Tournament(models.Model):
     game = models.ForeignKey('Game')
     team_game = models.BooleanField()
     team_size = models.IntegerField(null=True, blank=True)
-
-    players = models.ManyToManyField(Player, blank=True)
 
     def get_name(self):
         return self.game.name + ' -- ' + self.name

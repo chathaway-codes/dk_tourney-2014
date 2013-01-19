@@ -45,30 +45,28 @@
                 {% else %}
                     <ul class="unstyled lead">
                     {% for t in player|get_registered_tournaments %}
-                    <li><a href="{% url 'tournament_detail' pk=t.id %}">{{ t.get_name }}</a></li>
+                    <li><a href="">{{ t.get_name }}</a></li>
                     {% endfor %}
                     </ul>
                 {% endif %}
             </div>
         </div>
         {% endif %}
-        {% if player.team_set.count != 0 %}
+        {% with joined_teams=player|get_teams %}
+        {% if joined_teams|length != 0 %}
         <div class="row">
             <div class="span12">
                 <!-- Teams they are on -->
                 <h3>Teams I'm part of</h3>
-                {% if player.user.team_set.count == 0 %}
-                    <h4>I'm not on any teams yet</h4>
-                {% else %}
-                    <ul class="unstyled lead">
-                    {% for t in player.team_set.all %}
+                <ul class="unstyled lead">
+                    {% for t in joined_teams %}
                     <li><a href="#">{{ t.name }}</a></li>
                     {% endfor %}
-                    </ul>
-                {% endif %}
+                </ul>
             </div>
         </div>
         {% endif %}
+        {% endwith %}
         {% if player.platforms.count != 0 %}
         <div class="row">
             <div class="span12">
@@ -86,6 +84,23 @@
             </div>
         </div>
         {% endif %}
+
+        {% with joined_teams=player|get_pending_teams %}
+        {% if joined_teams|length != 0 %}
+        <div class="row">
+            <div class="span12">
+                <!-- Teams they are on -->
+                <h3>Pending team invites</h3>
+                    <ul class="unstyled lead">
+                    {% for t in joined_teams %}
+                        <li><a href="{% url 'teaminvite_accept' pk=t.id %}">{{ t }}</a></li>
+                    {% endfor %}
+                    </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+
         <div class="row">
             <div class="span12">
                 {% if user.id == player.user.id %}

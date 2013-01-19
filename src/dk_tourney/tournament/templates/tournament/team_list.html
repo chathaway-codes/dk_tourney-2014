@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load player_tags %}
+
+{% block title %}Teams{% endblock %}
+{% block tournaments %}class="active"{% endblock %}
+
+{% block content %}
+{% if message != None %}
+<h3>{{ message }}</h3>
+{% endif %}
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th># of tournaments</th>
+        <th>Leader</th>
+    </tr>
+{% if list %}
+    {% for l in list %}
+        <tr>
+            <td><a href="{% url 'team_detail' pk=l.id %}">{{ l }}</a></td>
+            <td>{{ l.tournaments.count }} </td>
+            <td>{{ l.lead }}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td>No players yet!</td>
+    </tr>
+{% endif %}
+</table>
+{% endblock %}

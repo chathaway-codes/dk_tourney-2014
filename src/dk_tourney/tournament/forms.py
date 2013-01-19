@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
-from tournament.models import Player, Platform, Game, Computer
+from tournament.models import Player, Platform, Game, Computer, Team, TeamInvite
 
 class PlayerForm(ModelForm):
     games = forms.ModelMultipleChoiceField(queryset=Game.objects.all(), widget=FilteredSelectMultiple("Games", is_stacked=False), required=False)
@@ -24,3 +24,17 @@ class ComputerForm(ModelForm):
     class Meta:
         model = Computer
         exclude = ('player',)
+
+class TeamForm(ModelForm):
+    def is_valid(self, form):
+        if super(TeamForm, self).is_valid(self, form) and self.request.user.player == form.instance.leader:
+            return True
+        return False
+
+    class Meta:
+        model = Team
+
+class TeamInviteForm(ModelForm):
+    class Meta:
+        model = TeamInvite
+        exclude = ('when', 'accepted', 'team',)
