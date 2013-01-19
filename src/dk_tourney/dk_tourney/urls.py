@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'home.html'}),
 
     # REST API
-    url(r'^api/', include(raw.api.urls)),
+#    url(r'^api/', include(raw.api.urls)),
     url(r'^my_admin/jsi18n', 'django.views.i18n.javascript_catalog'),
 )
 

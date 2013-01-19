@@ -11,8 +11,10 @@ def my_handler(sender, instance, created, **kwargs):
     if created:
         p = Player(user=instance)
         p.save()
+        Computer(player=p).save()
 
-        assign('edit', instance, p)
+        assign('change_computer', p.user, p.computer)
+        assign('change_player', p.user, p)
 
         Computer(player=p).save()
     

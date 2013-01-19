@@ -5,7 +5,6 @@
 {% load wysiwyg %}
 
 {% block extra-head %}
-    {% wysiwyg_setup %}
 {% endblock %}
 
 {% block title %}Edit Computer{% endblock %}
@@ -13,6 +12,4 @@
 
 {% block content %}
     {% include 'tournament/generic_form.html' %}
-
-    {% wysiwyg_editor "id_other" %}
 {% endblock %}
