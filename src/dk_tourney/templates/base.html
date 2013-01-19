@@ -44,7 +44,7 @@
 	                            {% if user.is_staff %}
 	                                <li> <a href="{% url 'admin:index' %}">Admin</a></li>
 	                            {% endif %}
-	                            <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+	                            {% comment %}<li><a href="{% url 'auth_logout' %}">Log out</a></li>{% endcomment %}
                             {% endif %}
                         </ul>
                     </div><!--/.nav-collapse -->

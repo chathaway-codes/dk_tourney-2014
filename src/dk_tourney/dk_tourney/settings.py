@@ -126,16 +126,26 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.markup',
     # Uncomment the next line to enable the admin:
     'south',
+    'guardian',
     'django.contrib.admin',
     'registration',
     'django_wysiwyg',
-    'tastypie',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'tournament',
 )
+
+AUTH_USER_MODEL = 'auth.User'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+)
+
+ANONYMOUS_USER_ID = -1
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'

@@ -1,8 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
-
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class File(models.Model):
     name = models.CharField(max_length=255)
@@ -14,7 +12,7 @@ class File(models.Model):
         return self.name
 
 class Player(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
     description = models.TextField(help_text="Put some information about yourself here. This will be visible to the world", null=True, blank=True)
 
     image = models.ImageField(help_text="Make it unique and memorable!", upload_to="players/%Y-%m-%d %H:%M:%S-", null=True, blank=True)
@@ -63,6 +61,9 @@ class Computer(models.Model):
     wat = models.PositiveIntegerField(null=True, blank=True)
 
     other = models.TextField(null=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('player_detail', kwargs={'pk': self.player.pk})
 
 class TeamInvite(models.Model):
     team = models.ForeignKey('Team')

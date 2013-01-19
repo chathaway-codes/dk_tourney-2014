@@ -6,11 +6,15 @@ from django.views.generic import ListView
 from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
+from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
 
+from guardian.mixins import PermissionRequiredMixin
+
 from tournament.models import Tournament, Game, Player, Computer, Team, TeamInvite
 from tournament.forms import PlayerForm, ComputerForm, TeamForm, TeamInviteForm
+
 
 class TournamentListView(ListView):
     model = Tournament
@@ -63,9 +67,16 @@ def tournament_reg(request, pk, **kwargs):
         request.user.tournament_set.remove(tournament)
         return render_to_response('tournament/tournament_list.html', {"message":"You have been unregistered.", "list":Tournament.objects.all}, context_instance=RequestContext(request))
 
-class PlayerEditView(UpdateView):
+class PlayerEditView(PermissionRequiredMixin, UpdateView):
     form_class = PlayerForm
     model = Player
+
+    permission_required = "tournament.change_player"
+    return_403 = True
+
+    def dispatch(self, request, *args, **kwargs):
+        self.kwargs = kwargs
+        return super(PlayerEditView, self).dispatch(request, *args, **kwargs)
 
 class PlayerCreateView(CreateView):
     form_class = PlayerForm
@@ -78,6 +89,13 @@ class PlayerCreateView(CreateView):
 class ComputerEditView(UpdateView):
     form_class = ComputerForm
     model = Computer
+
+    permission_required = "tournament.change_computer"
+    return_403 = True
+
+    def dispatch(self, request, *args, **kwargs):
+        self.kwargs = kwargs
+        return super(PlayerEditView, self).dispatch(request, *args, **kwargs)
 
 class TeamListView(ListView):
     model = Team

@@ -2,11 +2,8 @@
 {% load admin_static %}
 {% load url from future %}
 {% load player_tags %}
-{% load wysiwyg %}
 
 {% block extra-head %}
-    {% wysiwyg_setup %}
-
     <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
     {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
     <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
@@ -28,7 +25,6 @@
 {% block profiles %}class="active"{% endblock %}
 
 {% block content %}
+    <h4>Use <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> to customzie your profile message</h4>
     {% include 'tournament/generic_form.html' %}
-
-    {% wysiwyg_editor "id_description" %}
 {% endblock %}

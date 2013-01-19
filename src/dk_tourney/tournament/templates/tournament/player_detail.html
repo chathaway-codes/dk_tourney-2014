@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load url from future %}
+{% load markup %}
 {% load player_tags %}
 
 {% block title %}{{ player.get_name }}{% endblock %}
@@ -18,7 +19,7 @@
             <div class="span9">
                 <!-- User description of themselves, if applicable -->
                 {% if player.description %}
-                <p>{{ player.description|safe }}</p>
+                <p>{{ player.description|markdown:"safe" }}</p>
                 {% endif %}
             </div>
         </div>
