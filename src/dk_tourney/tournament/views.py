@@ -86,7 +86,7 @@ class PlayerCreateView(CreateView):
         form.instance.user = self.request.user
         return super(PlayerCreateView, self).form_valid(form)
 
-class ComputerEditView(UpdateView):
+class ComputerEditView(PermissionRequiredMixin, UpdateView):
     form_class = ComputerForm
     model = Computer
 
@@ -95,7 +95,7 @@ class ComputerEditView(UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.kwargs = kwargs
-        return super(PlayerEditView, self).dispatch(request, *args, **kwargs)
+        return super(ComputerEditView, self).dispatch(request, *args, **kwargs)
 
 class TeamListView(ListView):
     model = Team
