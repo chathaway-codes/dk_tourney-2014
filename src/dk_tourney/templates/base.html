@@ -11,7 +11,7 @@
         }
         </style>
         <script type="text/javascript">
-            window.API_RAW = "{% url 'api_raw_top_level' api_name="raw" %}";
+            {% comment %}window.API_RAW = "{% url 'api_raw_top_level' api_name="raw" %}";{% endcomment %}
             window.STATIC_URL = "{{ STATIC_URL }}";
         </script>
         <!--<script type="text/javascript" src="{{ STATIC_URL }}js/require.config.js"></script>-->

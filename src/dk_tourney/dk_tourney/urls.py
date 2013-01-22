@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^tournament/', include(tournament.urls)),
 
     # Registration URL
-#    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
     # Login URL
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'home.html'}),

@@ -113,9 +113,16 @@ class TeamCreateView(CreateView):
     form_class = TeamForm
     model = Team
 
-class TeamInviteCreateView(CreateView):
+class TeamInviteCreateView(PermissionRequiredMixin, CreateView):
     form_class = TeamInviteForm
     model = TeamInvite
+
+    permission_required = "tournament.create_teaminvite"
+    return_403 = True
+
+    def dispatch(self, request, *args, **kwargs):
+        self.kwargs = kwargs
+        return super(TeamInviteCreateView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.team = Team.objects.get(pk=self.kwargs['pk'])

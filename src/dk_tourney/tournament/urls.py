@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^teams/(?P<pk>\d+)/edit$', login_required(TeamEditView.as_view()), {}, 'team_edit'),
     url(r'^teams/(?P<pk>\d+)/create$', login_required(TeamCreateView.as_view()), {}, 'team_create'),
     url(r'^teams/(?P<pk>\d+)/invite$', login_required(TeamInviteCreateView.as_view()), {}, 'teaminvite_create'),
-    url(r'^teams/(?P<pk>\d+)/invite$', login_required(TeamInviteCreateView.as_view()), {}, 'teaminvite_accept'),
+    url(r'^teams/(?P<pk>\d+)/accept$', login_required(TeamInviteCreateView.as_view()), {}, 'teaminvite_accept'),
 
     url(r'^computers/(?P<pk>\d+)/edit$', login_required(ComputerEditView.as_view()), {}, 'computer_edit'),
 )
