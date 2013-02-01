@@ -24,9 +24,9 @@
             <td>
             {% if user.is_authenticated %}
                 {% if l in user.player.games.all %}
-                <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
+                    <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
                 {% else %}
-                <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
+                    <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
                 {% endif %}
             {% endif %}
             </td>

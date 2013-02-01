@@ -128,7 +128,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.markup',
     # Uncomment the next line to enable the admin:
-    'south',
     'guardian',
     'django.contrib.admin',
     'registration',

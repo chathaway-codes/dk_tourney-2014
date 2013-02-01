@@ -13,8 +13,6 @@ def my_handler(sender, instance, created, **kwargs):
         p.save()
         Computer(player=p).save()
 
-        assign('change_computer', p.user, p.computer)
-        assign('change_player', p.user, p)
-
-        Computer(player=p).save()
+        #assign('change_player', p.user, p)
+        #assign('change_computer', p.user, p.computer)
     

@@ -17,24 +17,21 @@ class PlayerForm(ModelForm):
         exclude = ('user',)
 
 class ComputerForm(ModelForm):
-    def form_valid(self, form):
-        form.instance.player = self.request.user.player
-        return super(ComputerForm, self).form_valid(form)
-
     class Meta:
         model = Computer
         exclude = ('player',)
 
 class TeamForm(ModelForm):
-    def is_valid(self, form):
-        if super(TeamForm, self).is_valid(self, form) and self.request.user.player == form.instance.leader:
-            return True
-        return False
-
     class Meta:
         model = Team
+        exclude = ('members',)
 
 class TeamInviteForm(ModelForm):
     class Meta:
         model = TeamInvite
         exclude = ('when', 'accepted', 'team',)
+
+class TeamInviteAcceptForm(ModelForm):
+    class Meta:
+        model = TeamInvite
+        exclude = ('when', 'team', 'player',)

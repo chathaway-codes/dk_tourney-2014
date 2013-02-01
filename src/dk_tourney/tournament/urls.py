@@ -2,7 +2,11 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 
-from tournament.views import GameListView, GameDetailView, interest_in_game, PlayerListView, PlayerDetailView, PlayerEditView, PlayerCreateView, TeamListView, TeamDetailView, TeamEditView, TeamCreateView, TeamInviteCreateView, ComputerEditView
+from tournament.views import GameListView, GameDetailView, interest_in_game
+from tournament.views import PlayerListView, PlayerDetailView, PlayerEditView, PlayerCreateView
+from tournament.views import TeamListView, TeamDetailView, TeamEditView, TeamCreateView, TeamInviteCreateView, TeamInviteEditView
+from tournament.views import TournamentListView, TournamentDetailView
+from tournament.views import ComputerEditView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -21,9 +25,12 @@ urlpatterns = patterns('',
     url(r'^teams/$', TeamListView.as_view(), {}, 'team_list'),
     url(r'^teams/(?P<pk>\d+)/$', TeamDetailView.as_view(), {}, 'team_detail'),
     url(r'^teams/(?P<pk>\d+)/edit$', login_required(TeamEditView.as_view()), {}, 'team_edit'),
-    url(r'^teams/(?P<pk>\d+)/create$', login_required(TeamCreateView.as_view()), {}, 'team_create'),
+    url(r'^teams/create$', login_required(TeamCreateView.as_view()), {}, 'team_create'),
     url(r'^teams/(?P<pk>\d+)/invite$', login_required(TeamInviteCreateView.as_view()), {}, 'teaminvite_create'),
-    url(r'^teams/(?P<pk>\d+)/accept$', login_required(TeamInviteCreateView.as_view()), {}, 'teaminvite_accept'),
+    url(r'^teams/(?P<pk>\d+)/accept$', login_required(TeamInviteEditView.as_view()), {}, 'teaminvite_accept'),
+
+    url(r'^tournaments/$', TournamentListView.as_view(), {}, 'tournament_list'),
+    url(r'^tournaments/(?P<pk>\d+)/$', TournamentDetailView.as_view(), {}, 'tournament_detail'),
 
     url(r'^computers/(?P<pk>\d+)/edit$', login_required(ComputerEditView.as_view()), {}, 'computer_edit'),
 )

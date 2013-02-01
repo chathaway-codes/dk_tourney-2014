@@ -89,13 +89,15 @@ class Team(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('team_detail', kwargs={'pk': self.id})
+
 class Tournament(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     game = models.ForeignKey('Game')
-    team_game = models.BooleanField()
-    team_size = models.IntegerField(null=True, blank=True)
+    team_size = models.IntegerField(default=1)
 
     def get_name(self):
         return self.game.name + ' -- ' + self.name

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load url from future %}
+{% load team_tags %}
 
 {% block title %}Tournaments{% endblock %}
 {% block tournaments %}class="active"{% endblock %}
@@ -10,8 +11,8 @@
         <th>Game</th>
         <th>Type</th>
         <th>Description</th>
-        <th>Teams?</th>
-        <th>Registered</th>
+        <th>Teams Size</th>
+        <th>Registered Teams</th>
         <th> </th>
     </tr>
 {% if list %}
@@ -20,19 +21,23 @@
             <td><a href="{% url 'tournament_detail' pk=l.id %}">{{ l.game.name }}</a></td>
             <td>{{ l.name }}</td>
             <td>{{ l.description }}</td>
-            <td>{{ l.team_game }}</td>
+            <td>{{ l.team_size }}</td>
             <td>
-            {% if l.team_game %}
                 {{ l.team_set.count }}
-            {% else %}
-                {{ l.players.count }}
-            {% endif %}
             </td>
             <td>
-                {% if user in l.players.all %}
-                <a href="{% url 'tournament_reg' pk=l.id %}">Unregister</a>
+                {% if l.team_size == 1 %}
+                    {% if l in user.player.games.all %}
+                        <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
+                    {% else %}
+                        <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
+                    {% endif %}
                 {% else %}
-                <a href="{% url 'tournament_reg' pk=l.id %}">Register</a>
+                    {% if l|get_player_team:user.player %}
+                        <a href="{% url 'team_detail' pk=l.id %}">View My Team</a>
+                    {% else %}
+                        <a href="{% url 'team_create' %}">Create a team</a>
+                    {% endif %}
                 {% endif %}
             </td>
         </tr>

@@ -61,7 +61,7 @@
                 <h3>Teams I'm part of</h3>
                 <ul class="unstyled lead">
                     {% for t in joined_teams %}
-                    <li><a href="#">{{ t.name }}</a></li>
+                    <li><a href="{% url 'team_detail' pk=t.id %}">{{ t.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

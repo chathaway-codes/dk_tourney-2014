@@ -7,13 +7,14 @@ from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
+from django.core.exceptions import PermissionDenied
 
 from django.contrib.auth.models import User
 
 from guardian.mixins import PermissionRequiredMixin
 
 from tournament.models import Tournament, Game, Player, Computer, Team, TeamInvite
-from tournament.forms import PlayerForm, ComputerForm, TeamForm, TeamInviteForm
+from tournament.forms import PlayerForm, ComputerForm, TeamForm, TeamInviteForm, TeamInviteAcceptForm
 
 
 class TournamentListView(ListView):
@@ -120,6 +121,12 @@ class TeamInviteCreateView(PermissionRequiredMixin, CreateView):
     permission_required = "tournament.create_teaminvite"
     return_403 = True
 
+    def check_permissions(self, request):
+        team = Team.objects.get(pk=self.kwargs['pk'])
+        if request.user.player == team.lead:
+            return None
+        raise PermissionDenied()
+
     def dispatch(self, request, *args, **kwargs):
         self.kwargs = kwargs
         return super(TeamInviteCreateView, self).dispatch(request, *args, **kwargs)
@@ -127,3 +134,33 @@ class TeamInviteCreateView(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.team = Team.objects.get(pk=self.kwargs['pk'])
         return super(TeamInviteCreateView, self).form_valid(form)
+
+class TeamInviteEditView(PermissionRequiredMixin, UpdateView):
+    form_class = TeamInviteAcceptForm
+    model = TeamInvite
+
+    permission_required = "tournament.create_teaminvite"
+    return_403 = True
+
+    def get_object(self):
+        # Just in case they do anything funky... Ie, check_permissions
+        super(TeamInviteEditView, self).get_object()
+        team = Team.objects.get(pk=self.kwargs['pk'])
+        return TeamInvite.objects.filter(team=team, player=self.request.user.player)[0]
+
+    def check_permissions(self, request):
+        team = Team.objects.get(pk=self.kwargs['pk'])
+        team_invite = TeamInvite.objects.filter(team=team, player=request.user.player)
+        if team_invite.count > 0:
+            self.request = request
+            return None
+        raise PermissionDenied()
+
+    def dispatch(self, request, *args, **kwargs):
+        self.kwargs = kwargs
+        return super(TeamInviteEditView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.team = Team.objects.get(pk=self.kwargs['pk'])
+        return super(TeamInviteEditView, self).form_valid(form)
+
