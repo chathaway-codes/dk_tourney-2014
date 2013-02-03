@@ -154,7 +154,7 @@ DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
 #DJANGO_WYSIWYG_MEDIA_URL = STATIC_URL + 'tiny_mce/'*/
 
 ABSOLUTE_URL_OVERRIDES = {
-    "auth.user": lambda o: "/tournament/profiles/%s/edit" % o.player.id
+    "auth.user": lambda o: "/tournament/players/%s/edit" % o.player.id
 }
 
 # A sample logging configuration. The only tangible logging

@@ -42,7 +42,7 @@
     </script>
 {% endblock %}
 
-{% block title %}Digital Khaos 2013{% endblock %}
+{% block hero %}Digital Khaos 2013{% endblock %}
 
 {% block home %}class="active"{% endblock %}
 
@@ -83,6 +83,7 @@
             <input type="password" class="input-block-level" name="{{ form.password.name }}" placeholder="{{ form.password.label }}">
             {{ form.password.errors }}
             <button class="btn btn-large btn-primary" type="submit">Login</button>
+            or <a href="{% url 'registration_register' %}">Register</a>
             </form>
         {% else %}
             {% with joined_teams=user.player|get_pending_teams %}
