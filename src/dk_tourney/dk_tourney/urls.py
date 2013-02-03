@@ -13,7 +13,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', login_required(TemplateView.as_view(template_name="home.html")), {}, 'home'),
+    url(r'^$', 'dk_tourney.views.home', {}, 'home'),
+    url(r'^about/', 'dk_tourney.views.about', {}, 'about'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

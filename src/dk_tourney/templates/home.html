@@ -46,63 +46,94 @@
 
 {% block home %}class="active"{% endblock %}
 
-{% block content %}
-    <div class="span4">
-        <p>Digital Khaos is an annual LAN party hosted by Vermont Technical College. It is run entirely by a student organization
-            known as "The Adventures Guild". All the organization, networking, software development, and marketing is done
-            by students in the club.</p>
-         <p>Last year, we had over 75 students show up for the whole 2-day event. We invite all Vermont Tech students to come this
-            year, and bring a friend! If you want to come, but you're not a student and don't know any students, shoot an email
-            to **email here**. We'll see if we can fit you in!</p>
-        <p>Happy gaming!</p>
-    </div>
-    <div class="span7 offset1">
+{% block block_body %}
+    <div class="container">
+        <div class="hero-unit">
+            <h1>Digital Khaos 2013</h1>
+            <p>Digital Khaos is an annual LAN party hosted by Vermont Technical College. It is run entirely by a student organization
+                known as "The Adventures Guild". All the organization, networking, software development, and marketing is done
+                by students in the club.</p>
+             <p>Last year, we had over 75 students show up for the whole 2-day event. We invite all Vermont Tech students to come this
+                year, and bring a friend! If you want to come, but you're not a student and don't know any students, shoot an email
+                to HPhan@vtc.vsc.edu. We'll see if we can fit you in!</p>
+            <p>Happy gaming!</p>
+        </div>
         <div class="row">
-            <div class="span12">
-                <div id="counter"></div>
-                <div class="desc">
-                    <div>Days</div>
-                    <div>Hours</div>
-                    <div>Minutes</div>
-                    <div>Seconds</div>
+            <div id="myCarousel" class="carousel slide">
+                <div class="carousel-inner" >
+                    {% for g in games %}
+                        {% if forloop.counter == 1 %}<div class="item active">
+                        {% else %}<div class="item">{% endif %}
+                            <img alt="{{ g.name }}" src="{{ g.image.url }}" style="width: 100%; height: 100%" />
+                            <div class="carousel-caption">
+                                <h4>{{ g.name }}</h4>
+                                <p>{{ g.description|truncatewords:30 }}</p>
+                                <a class="btn btn-large btn-primary" href="{% url 'game_detail' pk=g.id %}">Read more</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
         </div>
         <div class="row">
-            <div class="span12">
-        {% if not user.is_authenticated %}
-            <form method="post" class="form-signin" action="{% url 'django.contrib.auth.views.login' %}" style="margin: 0 0 20px;">
-                {% csrf_token %}
-
-            <h2 class="form-signin-heading">Login</h2>
-            {% if form.errors %}
-                <p>{{ form.non_field_errors.as_text }}</p>
-            {% endif %}
-            <input type="text" class="input-block-level" name="{{ form.username.html_name }}" placeholder="{{ form.username.label }}">
-            {{ form.username.errors }}
-            <input type="password" class="input-block-level" name="{{ form.password.name }}" placeholder="{{ form.password.label }}">
-            {{ form.password.errors }}
-            <button class="btn btn-large btn-primary" type="submit">Login</button>
-            or <a href="{% url 'registration_register' %}">Register</a>
-            </form>
-        {% else %}
-            {% with joined_teams=user.player|get_pending_teams %}
-                {% if joined_teams|length != 0 %}
-                <div class="row">
-                    <div class="span12">
-                        <!-- Teams they are on -->
-                        <h3>Pending team invites</h3>
-                            <ul class="unstyled lead">
-                            {% for t in joined_teams %}
-                                <li><a href="{% url 'teaminvite_accept' pk=t.id %}">{{ t }}</a></li>
-                            {% endfor %}
-                            </ul>
+            {% block content %}
+                <div class="span4">
+                    <h3>Registered players: {{ total_players }}</h3>
+                    <h3>Games: {{ total_games }}</h3>
+                    <h3>Tournaments: {{ total_tournaments }}</h3>
+                </div>
+                <div class="span7 offset1">
+                    <div class="row">
+                        <div class="span12">
+                            <div id="counter"></div>
+                            <div class="desc">
+                                <div>Days</div>
+                                <div>Hours</div>
+                                <div>Minutes</div>
+                                <div>Seconds</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                    {% if not user.is_authenticated %}
+                        <form method="post" class="form-signin" action="{% url 'django.contrib.auth.views.login' %}" style="margin: 0 0 20px;">
+                            {% csrf_token %}
+            
+                        <h2 class="form-signin-heading">Login</h2>
+                        {% if form.errors %}
+                            <p>{{ form.non_field_errors.as_text }}</p>
+                        {% endif %}
+                        <input type="text" class="input-block-level" name="{{ form.username.html_name }}" placeholder="{{ form.username.label }}">
+                        {{ form.username.errors }}
+                        <input type="password" class="input-block-level" name="{{ form.password.name }}" placeholder="{{ form.password.label }}">
+                        {{ form.password.errors }}
+                        <button class="btn btn-large btn-primary" type="submit">Login</button>
+                        or <a href="{% url 'registration_register' %}">Register</a>
+                        </form>
+                    {% else %}
+                        {% with joined_teams=user.player|get_pending_teams %}
+                            {% if joined_teams|length != 0 %}
+                            <div class="row">
+                                <div class="span12">
+                                    <!-- Teams they are on -->
+                                    <h3>Pending team invites</h3>
+                                        <ul class="unstyled lead">
+                                        {% for t in joined_teams %}
+                                            <li><a href="{% url 'teaminvite_accept' pk=t.id %}">{{ t }}</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                        </div>
                     </div>
                 </div>
-                {% endif %}
-            {% endwith %}
-        {% endif %}
-            </div>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

@@ -39,6 +39,7 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li {% block home %}{% endblock %}><a href="{% url 'home' %}">Home</a></li>
+                            <li {% block about %}{% endblock %}><a href="{% url 'about' %}">About</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Game Info<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -60,6 +61,13 @@
                                     </li>
 	                            {% endif %}
 	                            <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+                            {% else %}
+                                <form method="post" class="navbar-form pull-right" action="{% url 'django.contrib.auth.views.login' %}" style="margin: 0 0 20px;">
+                                    {% csrf_token %}
+                                    <input type="text" class="span2" name="{{ form.username.html_name }}" placeholder="{{ form.username.label }}">
+                                    <input type="password" class="span2" name="{{ form.password.name }}" placeholder="{{ form.password.label }}">
+                                    <button class="btn" type="submit">Sign in</button>
+                                </form>
                             {% endif %}
                         </ul>
                     </div>
