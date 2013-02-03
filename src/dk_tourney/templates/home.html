@@ -48,7 +48,7 @@
 
 {% block block_body %}
     <div class="container">
-        <div class="hero-unit">
+        <div class="hero-unit hidden-phone">
             <h1>Digital Khaos 2013</h1>
             <p>Digital Khaos is an annual LAN party hosted by Vermont Technical College. It is run entirely by a student organization
                 known as "The Adventures Guild". All the organization, networking, software development, and marketing is done
@@ -58,7 +58,20 @@
                 to HPhan@vtc.vsc.edu. We'll see if we can fit you in!</p>
             <p>Happy gaming!</p>
         </div>
-        <div class="row">
+	<div class="row visible-phone">
+		<div class="span12">
+		    <h1>Digital Khaos 2013</h1>
+                    <p>Digital Khaos is an annual LAN party hosted by Vermont Technical College. It is run entirely by a student organization
+                        known as "The Adventures Guild". All the organization, networking, software development, and marketing is done
+                        by students in the club.</p>
+                     <p>Last year, we had over 75 students show up for the whole 2-day event. We invite all Vermont Tech students to come this
+                        year, and bring a friend! If you want to come, but you're not a student and don't know any students, shoot an email
+                        to HPhan@vtc.vsc.edu. We'll see if we can fit you in!</p>
+                    <p>Happy gaming!</p>
+	
+		</div>
+	</div>
+        <div class="row hidden-phone">
             <div id="myCarousel" class="carousel slide">
                 <div class="carousel-inner" >
                     {% for g in games %}
@@ -85,7 +98,7 @@
                     <h3>Tournaments: {{ total_tournaments }}</h3>
                 </div>
                 <div class="span7 offset1">
-                    <div class="row">
+                    <div class="row hidden-phone">
                         <div class="span12">
                             <div id="counter"></div>
                             <div class="desc">
