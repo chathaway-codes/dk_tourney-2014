@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'guardian',
     'django.contrib.admin',
     'registration',
+    'captcha',
     'django_wysiwyg',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

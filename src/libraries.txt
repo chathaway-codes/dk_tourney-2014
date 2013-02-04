@@ -5,6 +5,7 @@ South==0.7.6
 distribute==0.6.30
 django-guardian==1.0.4
 django-registration==0.8
+django-simple-captcha==0.3.4
 django-tastypie==0.9.11
 django-wysiwyg==0.5
 html5lib==0.95
