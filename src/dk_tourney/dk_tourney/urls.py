@@ -8,6 +8,8 @@ from rest_api.apis import raw
 import tournament.urls
 from tournament.views import TournamentListView
 
+from dk_tourney.forms import CaptchaRegistrationForm
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -21,11 +23,14 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^tournament/', include(tournament.urls)),
 
     # Registration URL
+    url(r'^accounts/register/$', 'registration.views.register', {'backend': 'registration.backends.simple.SimpleBackend', 'form_class': CaptchaRegistrationForm}, 'registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/register/$', 'registration.views.register', {'backend': 'registration.backends.simple.SimpleBackend', 'form_class': CaptchaRegistrationForm}, 'registration_register'),
+
 
     # Login URL
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'home.html'}),
