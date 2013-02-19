@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load url from future %}
 
 {% block hero %}{{ tourney.name }}{% endblock %}
 {% block tournaments %}class="active"{% endblock %}
@@ -17,7 +18,7 @@
         <td>Game</td>
         <td>{{ tourney.game }}</td>
     </tr>
-    {% if tourney.team_game %}
+    {% if tourney.team_size > 1 %}
     <tr>
         <td>Size of teams</td>
         <td>{{ tourney.team_size }}</td>
@@ -27,7 +28,7 @@
         <td>
             <p>
             {% for t in tourney.team_set.all %}
-                {{ t.name }}<br />
+                <a href="{% url 'team_detail' pk=t.id %}">{{ t.name }}</a><br />
             {% endfor %}
             </p>
         </td>
