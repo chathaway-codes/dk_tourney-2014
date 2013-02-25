@@ -145,6 +145,7 @@ class TeamCreateView(CreateView):
 class TeamInviteCreateView(PermissionRequiredMixin, CreateView):
     form_class = TeamInviteForm
     model = TeamInvite
+    template_name = 'tournament/teaminvite_create.html'
 
     permission_required = "tournament.create_teaminvite"
     return_403 = True

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load admin_static %}
+{% load url from future %}
+{% load player_tags %}
+
+{% block hero %}Invite member{% endblock %}
+
+{% block content %}
+    {% include 'tournament/generic_form.html' %}
+{% endblock %}
