@@ -105,5 +105,10 @@ class Tournament(models.Model):
     def __unicode__(self):
         return self.get_name()
 
+# Place holder to make messages work
+class Message(models.Model):
+    message = models.CharField(max_length=4096)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
 # Include the signals
 import tournament.signals

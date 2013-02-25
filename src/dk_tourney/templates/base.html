@@ -78,15 +78,28 @@
         </div>
 
 
-
         {% block block_body %}
         <div class="container">
             <div class="row">
                 <div class="span12"><h1>{% block hero %}{% endblock %}</h1></div>
             </div>
             <div class="row">
-            {% block content %}
-            {% endblock %}
+              <div class="span9">
+              {% block content %}
+              {% endblock %}
+              </div>
+
+              <div class="span3">
+                <div class="well sidebar-nav">
+<ul class="nav nav-list">
+    <li><a href="{% url 'messages_inbox' %} ">Inbox</a></li>
+    <li><a href="{% url 'messages_outbox' %} ">Sent Messages</a></li>
+    <li><a href="{% url 'messages_compose' %} ">New Message</a></li>
+    <li><a href="{% url 'messages_trash' %} ">Trash</a></li>
+</ul>
+
+                </div>
+              </div>
             </div>
         </div> <!-- /container -->
         {% endblock %}
