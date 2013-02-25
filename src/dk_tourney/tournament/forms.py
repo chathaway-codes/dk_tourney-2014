@@ -24,7 +24,7 @@ class ComputerForm(ModelForm):
 class TeamForm(ModelForm):
     class Meta:
         model = Team
-        exclude = ('members',)
+        exclude = ('lead', 'members',)
 
 class TeamInviteForm(ModelForm):
     class Meta:

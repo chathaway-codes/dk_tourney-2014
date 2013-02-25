@@ -1,0 +1,9 @@
+{% load url from future %}
+      <div class="span1"><a href="{% url 'player_detail' pk=player.id %}">
+          {% if player.image %}
+              <img class="img-polaroid" src="{{ player.image.url }}" />
+          {% else %}
+              <img src="{{ STATIC_URL }}img/avatar.png" />
+          {% endif %}
+      </a></div>
+      <div class="span1"><a href="{% url 'player_detail' pk=player.id %}">{{ player }}</a></div>

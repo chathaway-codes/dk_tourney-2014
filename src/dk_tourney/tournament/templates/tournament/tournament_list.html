@@ -27,10 +27,10 @@
             </td>
             <td>
                 {% if l.team_size == 1 %}
-                    {% if l in user.player.games.all %}
-                        <a href="{% url 'game_interest_added' pk=l.id %}">Lost interest?</a>
+                    {% if l|player_registered:user.player %}
+                        <a href="{% url 'tournament_interest_added' pk=l.id %}">Lost interest?</a>
                     {% else %}
-                        <a href="{% url 'game_interest_added' pk=l.id %}">Interested?</a>
+                        <a href="{% url 'tournament_interest_added' pk=l.id %}">Interested?</a>
                     {% endif %}
                 {% else %}
                     {% if l|get_player_team:user.player %}

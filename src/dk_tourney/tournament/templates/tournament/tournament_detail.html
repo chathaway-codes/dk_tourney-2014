@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load url from future %}
+{% load team_tags %}
 
 {% block hero %}{{ tourney.name }}{% endblock %}
 {% block tournaments %}class="active"{% endblock %}
@@ -33,20 +34,32 @@
             </p>
         </td>
     </tr>
-    {% else %}
-    <tr>
-        <td>No teams</td>
-        <td></td>
-    </tr>
     <tr>
         <td>Players</td>
-        <td>
-            <p>
-                {% for p in tourney.players.all %}
-                {{ p.player.handle }}<br />
-                {% endfor %}
-            </p>
-        </td>
     </tr>
+</table>
+<div class="row">
+    {% for player in tourney|get_tournament_players %}
+        {% if forloop.counter0|divisibleby:"6" %}
+            </div><div class="row">
+        {% endif %}
+        {% include 'tournament/player_view.html' %}
+    {% endfor %}
+</div>
+    {% else %}
+    <tr>
+        <td>Players competing</td>
+    </tr>
+</table>
+        <div class="row">
+        {% for t in tourney.team_set.all %}
+          {% if forloop.counter0|divisibleby:"6" %}
+              </div><div class="row">
+          {% endif %}
+          {% with player=t.lead %}
+          {% include 'tournament/player_view.html' %}
+          {% endwith %}
+        {% endfor %}
+        </div>
     {% endif %}
 {% endblock %}

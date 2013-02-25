@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.template import RequestContext, loader
@@ -54,6 +54,25 @@ def interest_in_game(request, pk, **kwargs):
     else:
         request.user.player.games.remove(game)
         return render_to_response('tournament/game_list.html', {"message":"Your lack of interest has been noted!", "list":games}, context_instance=RequestContext(request))
+
+@login_required
+def interest_in_tournament(request, pk, **kwargs):
+    tournament = get_object_or_404(Tournament, pk=pk)
+
+    if tournament.team_size != 1:
+        raise Http404
+
+    if tournament.team_set.filter(lead=request.user.player).count() == 0:
+        t = Team(name=request.user.player.get_name() + " for " + tournament.__unicode__(), lead=request.user.player)
+        t.save()
+        t.tournaments.add(tournament)
+        tournaments = Tournament.objects.all()
+        return render_to_response('tournament/tournament_list.html', {"message":"Your interest has been noted!", "list":tournaments}, context_instance=RequestContext(request))
+    else:
+        t = request.user.player.team_lead_set.filter(tournaments=tournament)
+        t[0].delete()
+        tournaments = Tournament.objects.all()
+        return render_to_response('tournament/tournament_list.html', {"message":"Your lock of interest has been noted!", "list":tournaments}, context_instance=RequestContext(request))
 
 @login_required
 def tournament_reg(request, pk, **kwargs):
@@ -113,6 +132,15 @@ class TeamEditView(UpdateView):
 class TeamCreateView(CreateView):
     form_class = TeamForm
     model = Team
+
+    def dispatch(self, request, *args, **kwargs):
+      self.kwargs = kwargs
+      self.request = request
+      return super(TeamCreateView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+      form.instance.lead = self.request.user.player
+      return super(TeamCreateView, self).form_valid(form)
 
 class TeamInviteCreateView(PermissionRequiredMixin, CreateView):
     form_class = TeamInviteForm

@@ -54,7 +54,7 @@
 	<h2>People who will be playing</h2>
 	<div class="row">
 	{% for p in game.player_set.all %}
-	    {% if forloop.counter|divisibleby:"6" %}
+	    {% if forloop.counter0|divisibleby:"6" %}
 	        </div><div class="row">
 	    {% endif %}
 	    <div class="span1"><a href="{% url 'player_detail' pk=p.id %}">

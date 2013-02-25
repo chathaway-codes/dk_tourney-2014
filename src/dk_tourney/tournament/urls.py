@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from tournament.views import GameListView, GameDetailView, interest_in_game
 from tournament.views import PlayerListView, PlayerDetailView, PlayerEditView, PlayerCreateView
 from tournament.views import TeamListView, TeamDetailView, TeamEditView, TeamCreateView, TeamInviteCreateView, TeamInviteEditView
-from tournament.views import TournamentListView, TournamentDetailView
+from tournament.views import TournamentListView, TournamentDetailView, interest_in_tournament
 from tournament.views import ComputerEditView
 
 # Uncomment the next two lines to enable the admin:
@@ -31,6 +31,7 @@ urlpatterns = patterns('',
 
     url(r'^tournaments/$', TournamentListView.as_view(), {}, 'tournament_list'),
     url(r'^tournaments/(?P<pk>\d+)/$', TournamentDetailView.as_view(), {}, 'tournament_detail'),
+    url(r'^tournaments/(?P<pk>\d+)/interested$', interest_in_tournament, {}, 'tournament_interest_added'),
 
     url(r'^computers/(?P<pk>\d+)/edit$', login_required(ComputerEditView.as_view()), {}, 'computer_edit'),
 )
